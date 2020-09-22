@@ -1,0 +1,782 @@
+﻿<Window x:Class="VSLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VSLauncher"
+        mc:Ignorable="d"
+        Title="VSLauncher" Height="512.5" Width="300.8" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="NoResize" Icon="limg/gameicon.ico" WindowStartupLocation="CenterScreen" WindowStyle="None" Initialized="Window_Initialized">
+    <Window.Background>
+        <ImageBrush ImageSource="limg/soil.png" 
+                    Viewport="0,0,40,40" 
+                    TileMode="Tile" 
+                    Viewbox="0,0,86,86" 
+                    ViewportUnits="Absolute" 
+                    ViewboxUnits="Absolute"/>
+    </Window.Background>
+    <Window.Resources>
+        <Style x:Key="ComboboxButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#51000000"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                                BorderThickness="0"
+                                BorderBrush="Black"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--<ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                            Duration="0:0:0.100" To="2,2,0,0">
+
+                                        </ThicknessAnimation>-->
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--<ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                            Duration="0:0:0.100" To="0">
+
+                                        </ThicknessAnimation>-->
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SaveButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                                BorderThickness="0"
+                                BorderBrush="#FF262020"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--<ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                            Duration="0:0:0.100" To="2,2,0,0">
+
+                                        </ThicknessAnimation>-->
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <!--<ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                            Duration="0:0:0.100" To="0">
+
+                                        </ThicknessAnimation>-->
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CmbBtn" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Foreground" Value="#FFE0CFBB"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                                BorderThickness="0"
+                                BorderBrush="Black"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Margin="8,0,0,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#CCE0CFBB"/>
+                                <Setter Property="Foreground" Value="#FF262020"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="VSTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#51000000"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="#FFE0CFBB"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
+            <Setter Property="BorderBrush" Value="#59E0CFBB"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="8,-1,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid x:Name="root" 
+                              Height="{TemplateBinding Height}"
+                              Width="{TemplateBinding Width}"
+                              SnapsToDevicePixels="True">
+                            <Border x:Name="Background"
+                                    BorderThickness="1"
+                                    CornerRadius="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"/>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          BorderThickness="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          IsTabStop="False"
+                                          Background="{x:Null}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#7FE0CFBB"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#FFE0CFBB"/>
+                                <Setter Property="Background" Value="#B2262020"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="195"/>
+            <RowDefinition Height="273"/>
+        </Grid.RowDefinitions>
+        <Grid Name="Toolbar" 
+              Grid.Row="0"
+              Background="#FF262020" 
+              Cursor="Arrow" MouseDown="Toolbar_MouseDown" Grid.ColumnSpan="2" Margin="0,0,-0.2,0">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left">
+                <Image Source="limg/gameicon.ico" 
+                       Width="18" 
+                       Height="18" 
+                       Margin="8,1,0,0"
+                       Cursor="Arrow"/>
+                <Label Content="VSLauncher (v0.3)"
+                       FontFamily="Tahoma" 
+                       FontSize="13.5" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Foreground="#FFE0CFBB" 
+                       Margin="1,0,0,0" 
+                       FontWeight="Bold"
+                       Cursor="Arrow"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Right">
+                <Label Content="–" 
+                       FontWeight="Bold" 
+                       FontFamily="Tahoma" 
+                       FontSize="14" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"  
+                       Margin="0,0,6,0"
+                       Cursor="Hand" MouseDown="Label_MouseDown_1">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="#FFE0CFBB"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#FFA39585"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+
+                <Label Content="X" 
+                       FontWeight="Bold" 
+                       FontFamily="Tahoma" 
+                       FontSize="14" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="0,0,8,0"
+                       Cursor="Hand" MouseDown="Label_MouseDown">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Foreground" Value="#FFE0CFBB"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#FFA39585"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+
+            </StackPanel>
+        </Grid>
+        <Grid Name="Logo"
+              Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,-0.2,0">
+            <Image Source="limg/logo.png" Width="175" Margin="0,15,0,5"/>
+        </Grid>
+
+        <Grid Name="LoginData"
+              Grid.Row="2" Panel.ZIndex="5" Grid.ColumnSpan="2" Margin="0,0,-0.2,-0.4">
+            <Border Name="CbmBorder"
+                    Height="24" 
+                    Width="40"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="25,5,0,0"
+                    BorderThickness="1"
+                    ToolTip="Выбор языка игры"
+                    Cursor="Hand"
+                    Background="Transparent">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderBrush" Value="#59E0CFBB"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#7FE0CFBB"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#59E0CFBB"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#7FE0CFBB"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <Button Style="{StaticResource ComboboxButton}" Click="Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="13" Width="13"
+                               Margin="4,0,0,0">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="limg/Icons/globe_inactive.png"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=CbmBorder}" 
+                                            Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/globe_active.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type Button},
+                                            AncestorLevel=1},
+                                            Path=IsPressed}" Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/globe_inactive.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Image Height="10" Width="10"
+                               Margin="4,0,5,0">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="limg/Icons/chevron_inactive.png"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=CbmBorder}" 
+                                            Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/chevron_active.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type Button},
+                                            AncestorLevel=1},
+                                            Path=IsPressed}" Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/chevron_inactive.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </StackPanel>
+                </Button>
+
+            </Border>
+            <Grid Name="LanguageGrid"
+                  Grid.Row="2" 
+                  Height="74" 
+                  Width="154" 
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Margin="25,33,0,0"
+                  Visibility="Hidden" 
+                  Panel.ZIndex="10">
+                <Polygon Fill="Transparent" StrokeThickness="2.5" 
+                         Stroke="#FF262020"
+                         Points="0,6
+                         0,66
+                         150,66
+                         150,6
+                         36.3,6
+                         28.3,0
+                         20.3,6"/>
+                <Polygon Fill="#FF262020"  
+                         Stroke="#7FE0CFBB"
+                         Points="0,6
+                         0,66
+                         150,66
+                         150,6
+                         36.3,6
+                         28.3,0
+                         20.3,6"
+                         StrokeThickness="1"/>
+
+
+                <Grid Height="55"
+                      Width="144"
+                      HorizontalAlignment="Left" 
+                      VerticalAlignment="Top"
+                      Margin="2.9,10.1,0,0">
+                    <StackPanel Orientation="Vertical">
+                        <Button Style="{StaticResource CmbBtn}" 
+                            Cursor="Hand"
+                            Click="Button_Click_1">
+                            <TextBlock Text="English \ Английский"/>
+                        </Button>
+                        <Button Style="{StaticResource CmbBtn}"
+                            Margin="0,1.8,0,0" 
+                            Cursor="Hand"
+                            Click="Button_Click_2">
+                            <TextBlock Text="Russian \ Русский"/>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <TextBlock Name="LanguageLabel"  
+                       Text=""
+                       FontFamily="Tahoma"
+                       FontWeight="Normal"
+                       Foreground="#FFE0CFBB"
+                       FontSize="13"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       Margin="72,8.9,0,0"
+                       ToolTip="Язык игры" Initialized="LanguageLabel_Initialized"/>
+            <Border Name="CbmBorderHelp"
+                    Height="24" 
+                    Width="24"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Margin="0,5,25,0"
+                    BorderThickness="1"
+                    ToolTip="Помощь"
+                    Background="Transparent">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderBrush" Value="#59E0CFBB"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#7FE0CFBB"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#59E0CFBB"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#7FE0CFBB"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <Button Style="{StaticResource ComboboxButton}" 
+                        Click="Button_Click_3"
+                        Cursor="Hand">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Height="13" Width="13"
+                               Margin="0,0,0,0">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="limg/Icons/info_inactive.png"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=CbmBorderHelp}" 
+                                            Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/info_active.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type Button},
+                                            AncestorLevel=1},
+                                            Path=IsPressed}" Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/info_inactive.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                    </StackPanel>
+                </Button>
+
+            </Border>
+
+            <TextBox x:Name="NicknameBox" 
+                 Grid.Row="2"
+                 Style="{StaticResource VSTextBox}"
+                 Margin="25,39,25,0"
+                 VerticalAlignment="Top"
+                 Text="" Initialized="NicknameBox_Initialized" TextChanged="NicknameBox_TextChanged" Padding="8,-1,8,0"/>
+            <TextBlock IsHitTestVisible="False" 
+                       FontSize="14" 
+                       FontFamily="Tahoma"
+                       Text="Ваш никнейм"
+                       Margin="35,48,35,0"
+                       VerticalAlignment="Top"
+                       Foreground="#3FE0CFBB">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=NicknameBox}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <TextBox x:Name="PlayerUIDBox" 
+                 Grid.Row="2"
+                 Style="{StaticResource VSTextBox}"
+                 Margin="25,84,25,0"
+                 VerticalAlignment="Top"
+                 Text="" Initialized="PlayerUIDBox_Initialized" TextChanged="PlayerUIDBox_TextChanged" Padding="8,-1,8,0"/>
+            <TextBlock IsHitTestVisible="False" 
+                       FontSize="14" 
+                       FontFamily="Tahoma"
+                       Text="Ваш UID"
+                       Margin="35,93,40,0"
+                       VerticalAlignment="Top"
+                       Foreground="#3FE0CFBB">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=PlayerUIDBox}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <!--<ToggleButton Name="EncodeUID"
+                          Height="30"
+                          Width="190"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Margin="25,124,0,0"
+                          Content="Зашифровать UID?"
+                          FontFamily="Tahoma"
+                          FontWeight="Normal"
+                          Foreground="#FFE0CFBB"
+                          FontSize="13"
+                          Cursor="Hand" Click="EncodeUID_Click">
+                <ToggleButton.Template>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Height="20" 
+                                HorizontalAlignment="Left"
+                                Width="20"
+                                BorderThickness="1"
+                                Cursor="Hand"
+                                Background="#51000000">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="BorderBrush" Value="#59E0CFBB"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="#7FE0CFBB"/>
+                                            </Trigger>
+                                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                            Duration="0:0:0.000"
+                                                            To="#59E0CFBB"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                            Duration="0:0:0.000"
+                                                            To="#7FE0CFBB"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Image Margin="3">
+                                    <Image.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsChecked, 
+                                                RelativeSource={RelativeSource 
+                                                AncestorType={x:Type ToggleButton}}}"
+                                                Value="True">
+                                                    <Setter Property="Image.Source"
+                                                        Value="limg\Icons\check_active.png"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </Border>
+                            <ContentPresenter Margin="7,-1,0,0"
+                                          Content="{TemplateBinding Content}"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </ToggleButton.Template>
+                <ToggleButton.ToolTip>
+                    <TextBlock>
+                          Вы можете зашифровать свой UID в MD5 формат.
+                          <LineBreak /> <LineBreak /> 
+                          После этого его будет невозможно 
+                          расшифровать в обратную сторону
+                          <LineBreak />
+                          и владельцы серверов не узнают из какого слова
+                          был составлен UID.  
+                    </TextBlock>
+                </ToggleButton.ToolTip>
+            </ToggleButton>-->
+
+            <Label     x:Name="StatusLabel"
+                       FontFamily="Tahoma" 
+                       FontSize="12" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Top" 
+                       Foreground="#FF998D7F" 
+                       Margin="25,125.5,25,0" 
+                       FontWeight="Normal"
+                       Cursor="Arrow" 
+                Padding="0">
+                <TextBlock x:Name="StatusText"
+                           TextWrapping="WrapWithOverflow"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Visibility="Visible">
+                    
+                </TextBlock>
+            </Label>
+            
+            <Border Name="SaveButton"
+                    Height="35"
+                    VerticalAlignment="Top"
+                    Margin="25,199,25,0"
+                    BorderThickness="1"
+                    ToolTip="Сохранить настройки никнейма и UID"
+                    Cursor="Hand"
+                    Visibility="Visible" PreviewMouseUp="SaveButton_PreviewMouseUp">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderBrush" Value="#FFE0CFBB"/>
+                        <Setter Property="Background" Value="#FFE0CFBB"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FFCBBAA8"/>
+                                <Setter Property="Background" Value="#FFCBBAA8"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FFB9A999"/>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FFB9A999"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FFCBBAA8"/>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FFCBBAA8"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <Button Style="{StaticResource SaveButton}" Click="Button_Click_4">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Сохранить настройки"
+                               FontFamily="Tahoma"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="#FF262020"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                        <!--<Image Height="10" Width="10"
+                               Margin="4,0,5,0">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="limg/Icons/chevron_inactive.png"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=CbmBorder}" 
+                                            Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/chevron_active.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type Button},
+                                            AncestorLevel=1},
+                                            Path=IsPressed}" Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/chevron_inactive.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>-->
+                    </StackPanel>
+                </Button>
+
+            </Border>
+
+            <Border Name="PlayButton"
+                    Height="35"
+                    VerticalAlignment="Top"
+                    Margin="25,199,25,0"
+                    BorderThickness="1"
+                    ToolTip="Запустить игру"
+                    Cursor="Hand"
+                    Visibility="Hidden" PreviewMouseUp="PlayButton_PreviewMouseUp">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderBrush" Value="#FF9AC73E"/>
+                        <Setter Property="Background" Value="#FF9AC73E"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF7EA333"/>
+                                <Setter Property="Background" Value="#FF7EA333"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FF6E8E2C"/>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FF6E8E2C"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FF7EA333"/>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color"
+                                                        Duration="0:0:0.000"
+                                                        To="#FF7EA333"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <Button Style="{StaticResource SaveButton}" Click="Button_Click_5">
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="PlayGameBtnLabel"
+                               Content="Играть!"
+                               FontFamily="Tahoma"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="#FF262020"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                        <!--<Image Height="10" Width="10"
+                               Margin="4,0,5,0">
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="limg/Icons/chevron_inactive.png"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsMouseOver, ElementName=CbmBorder}" 
+                                            Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/chevron_active.png"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,
+                                            AncestorType={x:Type Button},
+                                            AncestorLevel=1},
+                                            Path=IsPressed}" Value="True">
+                                            <Setter Property="Source" Value="limg/Icons/chevron_inactive.png"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>-->
+                    </StackPanel>
+                </Button>
+
+            </Border>
+
+            <Label Content="Made By Outcast"
+                       FontFamily="Tahoma" 
+                       FontSize="12" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Top" 
+                       Foreground="#FF998D7F" 
+                       Margin="0,242.5,0,0" 
+                       FontWeight="Normal"
+                       Cursor="Arrow">
+            </Label>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,12 @@
+D:\Education\Computer Science\C#\Projects\VSLauncher\bin\Release\VSLauncher.exe.config
+D:\Education\Computer Science\C#\Projects\VSLauncher\bin\Release\VSLauncher.exe
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\MainWindow.g.cs
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\App.g.cs
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher_MarkupCompile.cache
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher_MarkupCompile.lref
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\MainWindow.baml
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.g.resources
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.Properties.Resources.resources
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.csproj.GenerateResource.cache
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.csproj.CoreCompileInputs.cache
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.exe
