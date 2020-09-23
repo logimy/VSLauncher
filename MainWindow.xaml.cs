@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Security.Cryptography;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 namespace VSLauncher
 {
@@ -333,7 +334,7 @@ namespace VSLauncher
                         GlobalVars.originalUsername = ParamFile.GetParamUserName();
                         GlobalVars.originalUID = ParamFile.GetParamUID();
                         Checkers Checkers = new Checkers();
-                        StatusText.Text = null;
+                        StatusText.Text = "Настройки успешно сохранены!";
                         if (Checkers.isUserDataChanged())
                         {
                             PlayButton.Visibility = Visibility.Hidden;
@@ -351,6 +352,9 @@ namespace VSLauncher
                         StatusText.Text = "• UID должен состоять из букв и цифр, " +
                         "не содержать пробелов " +
                         "и специальных символов и быть длиной от 6 до 32 символов.";
+                        MessageBox.Show("UID должен состоять из букв и цифр, " + "не содержать пробелов " +
+                        "и специальных символов и быть длиной от 6 до 32 символов.", 
+                        "Неверно введенный UID", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
@@ -358,6 +362,9 @@ namespace VSLauncher
                     StatusText.Text = "• Никнейм должен состоять из букв и цифр, " +
                         "не содержать пробелов " +
                         "и специальных символов и быть длиной от 3 до 16 символов.";
+                    MessageBox.Show("Никнейм должен состоять из букв и цифр, " + "не содержать пробелов " +
+                        "и специальных символов и быть длиной от 3 до 16 символов.",
+                        "Неверно введенный UID", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -375,6 +382,15 @@ namespace VSLauncher
                     if (propname.Length > 0)
                     {
                         PlayGameBtnLabel.Content = "Игра запуcкается...";
+                    }
+                    Thread.Sleep(8000);
+                    if (propname.Length > 0)
+                    {
+                        PlayGameBtnLabel.Content = "Игра запущена";
+                    } 
+                    else
+                    {
+                        PlayGameBtnLabel.Content = "Играть";
                     }
                 }
                 else

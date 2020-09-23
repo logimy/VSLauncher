@@ -179,7 +179,7 @@
                        Height="18" 
                        Margin="8,1,0,0"
                        Cursor="Arrow"/>
-                <Label Content="VSLauncher (v0.3)"
+                <Label Content="VSLauncher (v0.3.3)"
                        FontFamily="Tahoma" 
                        FontSize="13.5" 
                        HorizontalAlignment="Center" 

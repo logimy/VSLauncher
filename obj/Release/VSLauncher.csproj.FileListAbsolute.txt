@@ -10,3 +10,4 @@ D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.Prop
 D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.csproj.GenerateResource.cache
 D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.csproj.CoreCompileInputs.cache
 D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.exe
+D:\Education\Computer Science\C#\Projects\VSLauncher\obj\Release\VSLauncher.csprojAssemblyReference.cache
